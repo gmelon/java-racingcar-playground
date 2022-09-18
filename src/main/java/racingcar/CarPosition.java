@@ -2,13 +2,13 @@ package racingcar;
 
 public class CarPosition {
 
-    private int position;
+    private int value = 0;
 
     public void stepForward() {
-        position++;
+        value++;
     }
 
-    public int getPosition() {
-        return position;
+    public int getValue() {
+        return value;
     }
 }
