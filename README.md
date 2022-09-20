@@ -1,26 +1,39 @@
-## [NEXTSTEP 플레이그라운드의 미션 진행 과정](https://github.com/next-step/nextstep-docs/blob/master/playground/README.md)
+## 자동차 경주 게임
+### 기능 요구 사항
+* Car를 생성할 수 있다
+  * CarName은 1~5자 사이여야 한다
+  * CarPosition은 0으로 초기화한다
+  * 위 두 값은 클래스로 포장한다
 
----
-## 학습 효과를 높이기 위해 추천하는 미션 진행 방법
+* CarPosition
+  * 인스턴스 변수 position을 갖고, 값을 1씩 증가시키는 메서드를 갖는다 
+  * 주어진 position보다 자신의 position이 더 큰지 boolean으로 반환하는 isBiggerThan() 메소드 제공
 
----
-1. 피드백 강의 전까지 미션 진행 
-> 피드백 강의 전까지 혼자 힘으로 미션 진행. 미션을 진행하면서 하나의 작업이 끝날 때 마다 add, commit
-> 예를 들어 다음 숫자 야구 게임의 경우 0, 1, 2단계까지 구현을 완료한 후 push
+* Car.move(MovingStrategy movingStrategy)
+  * MovingStrategy 라는 이름의 Functional Interface를 만들고, isMoveble의 값이 true일 때만 이동한다
+  * 테스트 시 임의로 true, false를 입력한다.
+  * MovingStretegy는 외부에서 지원받는다
 
-![mission baseball](https://raw.githubusercontent.com/next-step/nextstep-docs/master/playground/images/mission_baseball.png)
+* Car.biggerThanGivenPosition(CarPosition carPosition)
+  * Cars에서 getMaxPosition()을 위해 사용되는 메서드
+  * 주어진 CarPosition보다 자신이 가진 CarPosition이 클 경우 자신의 것을 반환
 
----
-2. 피드백 앞 단계까지 미션 구현을 완료한 후 피드백 강의를 학습한다.
+* Cars
+  * Car를 생성해 리스트에 넣는다
+  * 일급 콜렉션, List<Car> 에 대한 api를 통제한다
+  * move(), findWinner(), getMaxPosition(), getCars() 메서드를 갖는다
 
----
-3. Git 브랜치를 master 또는 main으로 변경한 후 피드백을 반영하기 위한 새로운 브랜치를 생성한 후 처음부터 다시 미션 구현을 도전한다.
+* RacingGame
+  * CarName List와 tryCount를 받아 Cars를 생성
+  * tryCount 만큼 게임 진행 - play() 메소드
+    * Controller에서 매 play() 마다 결과를 출력하기 위해 isEnd() 메소드와 play() 메소드를 분리한다
+  * getCars(), getWinners() 메소드를 지원 (각각 Cars의 getCars(), findWinner() 메소드 호출)
 
-```
-git branch -a // 모든 로컬 브랜치 확인
-git checkout master // 기본 브랜치가 master인 경우
-git checkout main // 기본 브랜치가 main인 경우
+* InputView
+  * 쉼표로 구분된 차 이름들을 받아 배열로 반환 - getCarNames()
+  * 전진 시도 횟수 입력 받기 - getTryCount()
 
-git checkout -b 브랜치이름
-ex) git checkout -b apply-feedback
-```
+* OutputView
+  * 매 전진 결과 출력 - printPlayResult(List<car> cars)
+  * 우승자 출력 - printWinners(List<Car> cars)
+* 
