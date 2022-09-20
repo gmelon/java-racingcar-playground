@@ -30,17 +30,19 @@ public class GameManager {
         for (PlayStatus playStatus : playStatuses) {
             addVictoryCarIfPositionOverMaxPosition(maxPosition, virtoryCarName, playStatus);
         }
-        OutputView.println(virtoryCarName.toString().replace("[", "").replace("]", "") + "가 최종 우승했습니다.");
+        OutputView.println(
+            virtoryCarName.toString().replace("[", "").replace("]", "") + "가 최종 우승했습니다.");
     }
 
-    private static void addVictoryCarIfPositionOverMaxPosition(int maxPosition, List<String> virtoryCarName, PlayStatus playStatus) {
+    private static void addVictoryCarIfPositionOverMaxPosition(int maxPosition,
+        List<String> virtoryCarName, PlayStatus playStatus) {
         if (playStatus.isOverMaxPosition(maxPosition)) {
             virtoryCarName.add(playStatus.getCarNameValue());
         }
     }
 
     private static int processPlayStatus(List<PlayStatus> playStatuses, int maxPosition) {
-        for (PlayStatus playStatus: playStatuses) {
+        for (PlayStatus playStatus : playStatuses) {
             OutputView.println(playStatus.getStatusMessage());
             maxPosition = Math.max(maxPosition, playStatus.getCarPositionValue());
         }
@@ -51,8 +53,8 @@ public class GameManager {
     private static Cars getCars(String nextLine) {
         String[] carNames = nextLine.split(",");
         List<Car> carList = Arrays.stream(carNames)
-                                        .map(Car::new)
-                                        .collect(Collectors.toList());
+            .map(Car::new)
+            .collect(Collectors.toList());
         return new Cars(carList);
     }
 
